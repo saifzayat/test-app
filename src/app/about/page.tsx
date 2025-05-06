@@ -26,7 +26,7 @@ export default function About() {
 
   return (
     <PageAnimation>
-      <div className="flex flex-col p-10 lg:pb-0 justify-center gap-4">
+      <div className="flex flex-col p-10 justify-center gap-4 ">
         <h1 className="text-4xl gold-text lg:text-left md:text-left text-center">
           About Me
         </h1>
