@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Hero from "./hero/page";
-import Error from "./error/page"; // Import the Error component
+import Error from "./error/error"; // Import the Error component
 
 export default function Home() {
   const [showStart, setShowStart] = useState(true);
