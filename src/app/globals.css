@@ -1,21 +1,84 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap");
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --background: #000000;
+  --goldText: linear-gradient(
+    90deg,
+    #fceabb 0%,
+    #fbd08b 25%,
+    #f6c14c 50%,
+    #d4a73d 75%,
+    #b2892f 100%
+  );
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --goldTextHover: linear-gradient(
+    90deg,
+    #fff8dc 0%,
+    #ffe699 25%,
+    #ffd966 50%,
+    #ffcc33 75%,
+    #e6b800 100%
+  );
 }
 
 body {
-  color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+  font-family: "Cinzel Decorative", Arial, Helvetica, sans-serif;
+}
+
+/* الخط الذهبي */
+.gold-text {
+  background: var(--goldText);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  font-family: "Cinzel Decorative", serif;
+}
+.gold-text-hovered {
+  background: var(--goldTextHover);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  font-family: "Cinzel Decorative", serif;
+  animation: shine 1s infinite linear;
+  background-position: right;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.8);
+  transform: scale(1.05);
+}
+.gold-text-hover {
+  background: var(--goldText);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  font-family: "Cinzel Decorative", serif;
+  transition: transform 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+}
+.gold-text-hover:hover {
+  background: var(--goldTextHover);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  font-family: "Cinzel Decorative", serif;
+  animation: shine 1s infinite linear;
+  background-position: right;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.8);
+  transform: scale(1.05);
+  transition: transform 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+}
+@keyframes draw {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.svg-logo path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw 4s ease forwards;
 }
