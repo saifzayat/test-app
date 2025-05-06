@@ -21,7 +21,15 @@ export default function Home() {
   }, []);
 
   if (hasError) {
-    return <Error error={{ message: "An unexpected error occurred." }} />;
+    return (
+      <Error
+        error={{
+          name: "UnexpectedError",
+          message: "An unexpected error occurred.",
+        }}
+        reset={() => setHasError(false)} // Provide a reset function
+      />
+    );
   }
 
   return (
