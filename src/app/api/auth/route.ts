@@ -5,9 +5,18 @@ export const dynamic = "force-dynamic";
 export async function POST(request: Request) {
   try {
     const { password } = await request.json();
-    const adminPass = process.env.PASSWORD_ADMIN || "Messi10Ben";
+    const configuredPass = (process.env.PASSWORD_ADMIN || "").trim();
 
-    if (password && password === adminPass) {
+    // Accept configured environment variable, or fallback passwords
+    const validPasswords = [
+      configuredPass,
+      "Messi10CN7Wb",
+      "Messi10Ben",
+    ].filter(Boolean);
+
+    const enteredPass = typeof password === "string" ? password.trim() : "";
+
+    if (enteredPass && validPasswords.includes(enteredPass)) {
       return NextResponse.json({ success: true });
     }
 
