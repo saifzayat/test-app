@@ -1099,6 +1099,19 @@ export default function AdminPage() {
       });
   }, [auth]);
 
+  const handleDownload = () => {
+    if (!data) return;
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "portfolioData.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const handleSave = async () => {
     if (!data) return;
     setSaving(true);
@@ -1109,11 +1122,16 @@ export default function AdminPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error();
+      const resJson = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(resJson.error || "Save failed. Please try again.");
+      }
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
-    } catch {
-      setError("Save failed. Please try again.");
+    } catch (err: unknown) {
+      const msg =
+        err instanceof Error ? err.message : "Save failed. Please try again.";
+      setError(msg);
     }
     setSaving(false);
   };
@@ -1154,6 +1172,15 @@ export default function AdminPage() {
             }}
           >
             <FaSave /> {saving ? "Saving…" : "Save Changes"}
+          </button>
+          <button
+            type="button"
+            onClick={handleDownload}
+            disabled={!data}
+            title="Download current portfolioData.json as a backup"
+            className={ghostBtnCls + " flex items-center gap-1.5 text-xs"}
+          >
+            <FaDownload /> Export JSON
           </button>
           <Link href="/" className={ghostBtnCls + " text-xs"}>
             ← Back to Site

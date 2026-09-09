@@ -1,10 +1,15 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import {
+  isKvConfigured,
+  getPortfolioFromKV,
+  setPortfolioInKV,
+} from "@/lib/kv";
 
 export const dynamic = "force-dynamic";
 
-const CV_DIR   = path.join(process.cwd(), "public", "cv");
+const CV_DIR = path.join(process.cwd(), "public", "cv");
 const DATA_FILE = path.join(process.cwd(), "public", "portfolioData.json");
 
 const ALLOWED_TYPES = [
@@ -14,17 +19,43 @@ const ALLOWED_TYPES = [
 ];
 const MAX_SIZE_MB = 10;
 
-/* GET — return current CV URL from portfolioData.json */
+async function getPortfolioData(): Promise<Record<string, unknown>> {
+  if (isKvConfigured) {
+    const kvData = await getPortfolioFromKV();
+    if (kvData && typeof kvData === "object") {
+      return kvData as Record<string, unknown>;
+    }
+  }
+  if (fs.existsSync(DATA_FILE)) {
+    try {
+      return JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
+    } catch {}
+  }
+  return {};
+}
+
+async function savePortfolioData(data: Record<string, unknown>) {
+  if (isKvConfigured) {
+    await setPortfolioInKV(data);
+  }
+  try {
+    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), "utf8");
+  } catch (fsErr) {
+    console.warn("Notice: could not write to local filesystem (expected on Vercel):", fsErr);
+  }
+}
+
+/* GET — return current CV URL */
 export async function GET() {
   try {
-    const data = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
+    const data = await getPortfolioData();
     return NextResponse.json({ cvUrl: data.cvUrl ?? "" });
   } catch {
     return NextResponse.json({ cvUrl: "" });
   }
 }
 
-/* POST — upload a new CV, replace old one, update portfolioData.json */
+/* POST — upload a new CV, replace old one, update portfolio data */
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
@@ -46,36 +77,54 @@ export async function POST(request: Request) {
       );
     }
 
-    // Ensure /public/cv exists, wipe any existing CV files
-    if (!fs.existsSync(CV_DIR)) fs.mkdirSync(CV_DIR, { recursive: true });
-    fs.readdirSync(CV_DIR).forEach((f) => fs.unlinkSync(path.join(CV_DIR, f)));
-
-    // Save file with a sanitised name
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-    fs.writeFileSync(path.join(CV_DIR, safeName), Buffer.from(await file.arrayBuffer()));
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
 
-    const cvUrl = `/cv/${safeName}`;
+    let cvUrl = `/cv/${safeName}`;
 
-    // Persist URL in portfolioData.json
-    const data = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
+    // Try saving to local disk
+    try {
+      if (!fs.existsSync(CV_DIR)) fs.mkdirSync(CV_DIR, { recursive: true });
+      fs.readdirSync(CV_DIR).forEach((f) => {
+        try {
+          fs.unlinkSync(path.join(CV_DIR, f));
+        } catch {}
+      });
+      fs.writeFileSync(path.join(CV_DIR, safeName), buffer);
+    } catch (fsErr) {
+      console.warn("Filesystem read-only on Vercel for CV file:", fsErr);
+      // For CVs under 3MB on read-only systems, convert to data URL so the download still works
+      if (file.size <= 3 * 1024 * 1024) {
+        cvUrl = `data:${file.type};base64,${buffer.toString("base64")}`;
+      }
+    }
+
+    // Persist URL in portfolio data (KV and/or local JSON)
+    const data = await getPortfolioData();
     data.cvUrl = cvUrl;
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+    await savePortfolioData(data);
 
     return NextResponse.json({ url: cvUrl, filename: safeName });
-  } catch {
-    return NextResponse.json({ error: "Upload failed" }, { status: 500 });
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : "Upload failed";
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
 
 /* DELETE — remove the CV file and clear the URL */
 export async function DELETE() {
   try {
-    if (fs.existsSync(CV_DIR)) {
-      fs.readdirSync(CV_DIR).forEach((f) => fs.unlinkSync(path.join(CV_DIR, f)));
-    }
-    const data = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
+    try {
+      if (fs.existsSync(CV_DIR)) {
+        fs.readdirSync(CV_DIR).forEach((f) => fs.unlinkSync(path.join(CV_DIR, f)));
+      }
+    } catch {}
+
+    const data = await getPortfolioData();
     data.cvUrl = "";
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+    await savePortfolioData(data);
+
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ error: "Delete failed" }, { status: 500 });
