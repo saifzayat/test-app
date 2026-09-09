@@ -17,8 +17,9 @@ export default function Loading({ children }: { children: React.ReactNode }) {
           src={img}
           alt="Loading Logo"
           width={100}
-          height={100}
-          style={{ objectFit: "contain" }}
+          height={125}
+          style={{ width: "auto", height: "auto" }}
+          priority
         />
         <Hacker />
       </div>

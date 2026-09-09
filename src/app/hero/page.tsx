@@ -1,75 +1,131 @@
-import Image from "next/image";
-import Me from "../../assets/logoNoBG.png";
-
+"use client";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import {
   FaFacebook,
+  FaTiktok,
   FaLinkedin,
   FaGithub,
   FaInstagram,
-  FaTiktok,
+  FaDownload,
 } from "react-icons/fa";
+import Image from "next/image";
+import Me from "../../assets/logoNoBG.png";
 import PageAnimation from "../components/PageAnimation";
+import Link from "next/link";
 
-const socials = [
-  {
-    name: "Facebook",
-    icon: <FaFacebook />,
-    href: "https://www.facebook.com/saif.zayat",
-  },
-  {
-    name: "TikTok",
-    icon: <FaTiktok />,
-    href: "https://www.tiktok.com/@saifzayat5",
-  },
-  {
-    name: "LinkedIn",
-    icon: <FaLinkedin />,
-    href: "https://www.linkedin.com/in/saif-zayat-998583266/",
-  },
-  {
-    name: "GitHub",
-    icon: <FaGithub />,
-    href: "https://github.com/saifzayat",
-  },
-  {
-    name: "Instagram",
-    icon: <FaInstagram />,
-    href: "https://www.instagram.com/saif.zayat/",
-  },
-];
+const iconMap: Record<string, React.ReactElement> = {
+  FaFacebook: <FaFacebook />,
+  FaTiktok: <FaTiktok />,
+  FaLinkedin: <FaLinkedin />,
+  FaGithub: <FaGithub />,
+  FaInstagram: <FaInstagram />,
+};
+
+interface Social {
+  name: string;
+  icon: string;
+  href: string;
+}
+
+interface HeroData {
+  name: string;
+  title: string;
+  tagline: string;
+  socials: Social[];
+}
+
 export default function Hero() {
+  const [hero, setHero] = useState<HeroData>({
+    name: "Saif Shireef El-Zayat",
+    title: "React Developer",
+    tagline: "Building modern, responsive & dynamic web experiences",
+    socials: [],
+  });
+  const [cvUrl, setCvUrl] = useState("");
+
+  useEffect(() => {
+    fetch("/api/portfolio")
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.hero) setHero(d.hero);
+        if (d.cvUrl) setCvUrl(d.cvUrl);
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <PageAnimation>
-      {/* Background Image */}
+      {/* Background blur image */}
       <div
-        className="absolute bg-contain inset-0 bg-right blur-md"
+        className="absolute inset-0 bg-contain bg-right"
         style={{
           backgroundImage: `url(${Me.src})`,
-          backgroundRepeat: "no-repeat", // Prevent the image from repeating
+          backgroundRepeat: "no-repeat",
           filter: "blur(10px)",
         }}
-      ></div>
+      />
 
-      {/* Foreground Content */}
-      <div className="relative z-10 flex flex-col justify-center lg:items-start p-10 gap-10 md:items-center md:h-[calc(100vh-80px)] lg:h-[calc(100vh-80px)] ">
-        <h1 className="lg:text-4xl sm:text-2xl gold-text">
-          Saif Shireef El-Zayat <br />
-          I&#39;m React Developer
-        </h1>
-        <div className="flex gap-6 items-center">
-          {socials.map((social) => (
-            <a
+      {/* Foreground */}
+      <div className="relative z-10 flex flex-col justify-center lg:items-start p-10 gap-8 md:items-center md:h-[calc(100vh-80px)] lg:h-[calc(100vh-80px)]">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="flex flex-col gap-4"
+        >
+          <h1 className="lg:text-5xl sm:text-3xl text-2xl gold-text leading-tight">
+            {hero.name}
+          </h1>
+          <p className="text-xl md:text-2xl gold-text opacity-80">
+            {hero.title}
+          </p>
+          <p className="text-sm md:text-base text-gray-300 max-w-md font-sans font-light">
+            {hero.tagline}
+          </p>
+        </motion.div>
+
+        {/* CV Download */}
+        {cvUrl && (
+          <motion.a
+            href={cvUrl}
+            download
+            id="hero-cv-download"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.55 }}
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.97 }}
+            className="flex items-center gap-2 self-start px-6 py-3 rounded-full font-bold font-sans text-black"
+            style={{
+              background: "linear-gradient(90deg,#f6c14c,#fceabb,#b2892f)",
+              boxShadow: "0 0 20px rgba(246,193,76,0.25)",
+            }}
+          >
+            <FaDownload />
+            Download CV
+          </motion.a>
+        )}
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+          className="flex gap-6 items-center"
+        >
+          {hero.socials.map((social) => (
+            <Link
               key={social.name}
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`text-[#f6c14c] text-3xl hover:text-[#b2892f] hover:scale-110 transition-all duration-300 cursor-pointer`}
               title={social.name}
+              className="text-[#f6c14c] text-3xl hover:text-[#fff8dc] hover:scale-125 transition-all duration-300 cursor-pointer drop-shadow-[0_0_8px_rgba(246,193,76,0.6)]"
             >
-              {social.icon}
-            </a>
+              {iconMap[social.icon] ?? null}
+            </Link>
           ))}
-        </div>
+        </motion.div>
       </div>
     </PageAnimation>
   );

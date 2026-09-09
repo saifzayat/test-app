@@ -1,0 +1,267 @@
+{
+  "cvUrl": "/cv/Saif_shireef_elzayat.pdf",
+  "hero": {
+    "name": "Saif Shireef El-Zayat",
+    "title": "React Developer | React Native Developer ",
+    "tagline": "Building high-performance, cross-platform applications from web add mobile.",
+    "socials": [
+      {
+        "name": "Facebook",
+        "icon": "FaFacebook",
+        "href": "https://www.facebook.com/saif.zayat"
+      },
+      {
+        "name": "TikTok",
+        "icon": "FaTiktok",
+        "href": "https://www.tiktok.com/@saifzayat5"
+      },
+      {
+        "name": "LinkedIn",
+        "icon": "FaLinkedin",
+        "href": "https://www.linkedin.com/in/saif-zayat/"
+      },
+      {
+        "name": "GitHub",
+        "icon": "FaGithub",
+        "href": "https://github.com/saifzayat"
+      },
+      {
+        "name": "Instagram",
+        "icon": "FaInstagram",
+        "href": "https://www.instagram.com/saif.zayat/"
+      }
+    ]
+  },
+  "about": {
+    "title": "Front-End Developer",
+    "bio": "I'm a React developer with a passion for creating dynamic and responsive web applications. I love turning complex problems into elegant, intuitive interfaces. Here are some details about me:",
+    "photoUrl": "/uploads/1788987399877-rb3yxq3.webp",
+    "stats": [
+      {
+        "label": "Phone",
+        "value": "+201112277897",
+        "href": "tel:+201112277897"
+      },
+      {
+        "label": "Experience",
+        "value": "1+ Year"
+      },
+      {
+        "label": "WhatsApp",
+        "value": "+201112277897",
+        "href": "https://wa.me/201112277897"
+      },
+      {
+        "label": "Degree",
+        "value": "Bachelor"
+      },
+      {
+        "label": "Email",
+        "value": "saifzayat@gmail.com",
+        "href": "mailto:saifzayat@gmail.com"
+      },
+      {
+        "label": "Freelance",
+        "value": "Available"
+      },
+      {
+        "label": "Hobbies",
+        "value": "Coding, Reading, Gaming, Swimming"
+      },
+      {
+        "label": "Address",
+        "value": "Al-Qalyubia, Obour city",
+        "href": "https://www.google.com/maps/place//@30.2268763,31.4693065,19.75z?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "s5xfov1",
+      "title": "Wfrlee",
+      "description": "In addition to our online platform, we also offer a mobile application for iOS and Android users, making it even more convenient for customers to book short-stay accommodation on the go. Our app is user-friendly and offers all the same features as our website,",
+      "tags": [
+        "React",
+        "Redux",
+        "React Router",
+        "material UI",
+        "javascript",
+        "i18manger",
+        "React Native"
+      ],
+      "liveUrl": "https://www.wfrlee.com/",
+      "githubUrl": "",
+      "image": "/uploads/1788991656548-btsjqes.webp"
+    },
+    {
+      "id": "56rqxjt",
+      "title": "Tag Pro",
+      "description": "AI Broadcast\nMonitoring &\nAd Verification",
+      "tags": [
+        "React",
+        "Redux",
+        "React Router",
+        "Tailwind CSS",
+        "typescript",
+        "Shadcn"
+      ],
+      "liveUrl": "https://tagpro.ae/",
+      "githubUrl": "",
+      "image": "/uploads/1788991321917-zxink6a.webp"
+    },
+    {
+      "id": "1",
+      "title": "SZ Portfolio",
+      "description": "A personal portfolio website built with Next.js 15 and Tailwind CSS, featuring a stunning gold design system, Framer Motion animations, and a dynamic no-code admin editor.",
+      "tags": [
+        "Next.js",
+        "Nodemailer",
+        "Tailwind CSS",
+        "Framer Motion"
+      ],
+      "liveUrl": "#https://portv1-omega.vercel.app/",
+      "githubUrl": "",
+      "image": "/uploads/1788987918908-70hqgck.webp"
+    },
+    {
+      "id": "2",
+      "title": "React E-Commerce",
+      "description": "A full-featured e-commerce platform with product listings, shopping cart, checkout flow, and integrated payment gateway.",
+      "tags": [
+        "React",
+        "Redux",
+        "React Router",
+        "firebase",
+        "MongoDB",
+        "javascript",
+        "CSS"
+      ],
+      "liveUrl": "#https://e-commerce-seven-weld-90.vercel.app/",
+      "githubUrl": "https://github.com/saifzayat",
+      "image": "/uploads/1788988380404-vtclmh6.webp"
+    },
+    {
+      "id": "980sup0",
+      "title": "world wise",
+      "description": "Navigate the globe smarter with World Wise—your trusted hub for practical global insights.",
+      "tags": [
+        "react",
+        "json-server",
+        "react router",
+        "vite",
+        "typescript"
+      ],
+      "liveUrl": "#https://worldwise-one-eta.vercel.app/",
+      "githubUrl": "https://github.com/saifzayat/worldwise",
+      "image": "/uploads/1788988795844-o0l3yzx.webp"
+    },
+    {
+      "id": "xrhvy5y",
+      "title": "movies IMDB rating",
+      "description": "My personal movie tracker: IMDb data, my own ratings.",
+      "tags": [
+        "react",
+        "javascript",
+        "CSS",
+        "react hooks"
+      ],
+      "liveUrl": "https://movies-umber-beta.vercel.app/",
+      "githubUrl": "https://github.com/saifzayat/Movies",
+      "image": "/uploads/1788990354517-3cr2jjh.webp"
+    },
+    {
+      "id": "k46xs51",
+      "title": "To Do List",
+      "description": "simple to do list but here we using react query",
+      "tags": [
+        "react",
+        "redux",
+        "react query",
+        "typescript",
+        "material UI",
+        "json-server"
+      ],
+      "liveUrl": "https://to-do-list-mind.vercel.app/",
+      "githubUrl": "https://github.com/saifzayat/To-Do-List_mind",
+      "image": "/uploads/1788989766675-8i9df2a.webp"
+    },
+    {
+      "id": "7lk11ky",
+      "title": "Challenge in front-end mentor",
+      "description": "Some of Challenge in front-end mentor ",
+      "tags": [
+        "react",
+        "javascript",
+        "CSS",
+        "react hooks"
+      ],
+      "liveUrl": "https://nft-preview-card-main-six.vercel.app/",
+      "githubUrl": "https://github.com/saifzayat/nft-preview-card-main",
+      "image": "/uploads/1788991042672-3g1856p.webp"
+    }
+  ],
+  "experience": [
+    {
+      "id": "1",
+      "role": "React Developer | React Native Developer",
+      "company": "Freelance",
+      "period": "2023 – Present",
+      "description": "Building responsive and interactive web applications for clients worldwide. Specialized in React and Next.js with a focus on performance and modern UX patterns.",
+      "skills": [
+        "React",
+        "Next.js",
+        "Tailwind CSS",
+        "TypeScript",
+        "Framer Motion",
+        "React Native",
+        "Bootstrap",
+        "Git",
+        "Figma",
+        "javaScript",
+        "CSS",
+        "material UI",
+        "i18manger"
+      ]
+    },
+    {
+      "id": "2",
+      "role": "React Developer | React Native Developer",
+      "company": "Wfrlee Startup Company",
+      "period": "2023 – Present",
+      "description": "Developed and maintained client-facing web applications, collaborated with design teams to implement pixel-perfect UI/UX, and improved page performance by 40%.",
+      "skills": [
+        "React",
+        "React Native",
+        "TypeScript",
+        "Bootstrap",
+        "Git",
+        "Figma",
+        "javaScript",
+        "CSS",
+        "material UI",
+        "i18manger"
+      ]
+    },
+    {
+      "id": "3",
+      "role": "Front-End Developer",
+      "company": "vertexera | TagPro",
+      "period": "2024 – Present",
+      "description": "TagPro helps advertisers, broadcasters, and media agencies automatically verify commercials, monitor radio streams, and generate proof-of-airing reports with real timestamps",
+      "skills": [
+        "React",
+        "Redux",
+        "React Router",
+        "Tailwind CSS",
+        "typescript",
+        "Shadcn"
+      ]
+    }
+  ],
+  "contact": {
+    "email": "saifzayat@gmail.com",
+    "phone": "+201112277897",
+    "whatsapp": "+201112277897",
+    "address": "Al-Qalyubia, Obour city"
+  }
+}
