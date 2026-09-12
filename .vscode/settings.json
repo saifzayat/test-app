@@ -1,4 +1,16 @@
 {
-  "cSpell.words": ["saif", "Zayat"],
-  "CodeGPT.apiKey": "Ollama"
+  "cSpell.words": [
+    "saif",
+    "Zayat"
+  ],
+  "CodeGPT.apiKey": "Ollama",
+  "task.allowAutomaticTasks": true,
+  "debug.openDebug": "neverOpen",
+  "terminal.integrated.inheritEnv": false,
+  "tasks": {
+    "label": "lint on open",
+    "type": "shell",
+    "command": "npm run lint",
+    "runOn": "folderOpen"
+  }
 }
