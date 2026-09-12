@@ -69,7 +69,7 @@ export default function About() {
   const [about, setAbout] = useState<AboutData>({
     title: "Front-End Developer",
     bio: "I'm a React developer with a passion for creating dynamic and responsive web applications. I love turning complex problems into elegant, intuitive interfaces.",
-    photoUrl: "",
+    photoUrl: "/",
     stats: [],
   });
   const [cvUrl, setCvUrl] = useState("");
@@ -151,7 +151,7 @@ export default function About() {
                 <div className="absolute -bottom-1.5 -right-1.5 w-4 h-4 border-b-2 border-r-2 border-[#f6c14c] pointer-events-none" />
 
                 {/* Photo */}
-                <div className="relative rounded-lg overflow-hidden aspect-[4/5] bg-[#141414]">
+                {/* <div className="relative rounded-lg overflow-hidden aspect-[4/5] bg-[#141414]">
                   <Image
                     src={about.photoUrl}
                     alt="Saif El-Zayat"
@@ -160,10 +160,8 @@ export default function About() {
                     className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                     priority
                   />
-                  {/* Subtle vignette gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-                </div>
-
+                </div> */}
                 {/* Floating Availability Badge */}
                 <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0a0a0a]/95 backdrop-blur-md border border-[#f6c14c55] shadow-[0_4px_25px_rgba(246,193,76,0.25)] whitespace-nowrap">
                   <span className="relative flex h-2.5 w-2.5">
