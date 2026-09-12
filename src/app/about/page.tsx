@@ -69,7 +69,7 @@ export default function About() {
   const [about, setAbout] = useState<AboutData>({
     title: "Front-End Developer",
     bio: "I'm a React developer with a passion for creating dynamic and responsive web applications. I love turning complex problems into elegant, intuitive interfaces.",
-    photoUrl: "/saifElZayat.png",
+    photoUrl: "",
     stats: [],
   });
   const [cvUrl, setCvUrl] = useState("");
@@ -114,7 +114,8 @@ export default function About() {
           </h1>
           <p className="text-gray-400 font-sans font-light text-center lg:text-left max-w-2xl text-sm lg:text-base leading-relaxed">
             Passionate about transforming creative ideas into high-impact,
-            pixel-perfect digital products with state-of-the-art web technologies.
+            pixel-perfect digital products with state-of-the-art web
+            technologies.
           </p>
         </motion.div>
 
@@ -152,7 +153,7 @@ export default function About() {
                 {/* Photo */}
                 <div className="relative rounded-lg overflow-hidden aspect-[4/5] bg-[#141414]">
                   <Image
-                    src={about.photoUrl || "/saifElZayat.png"}
+                    src={about.photoUrl}
                     alt="Saif El-Zayat"
                     fill
                     sizes="(max-width: 768px) 100vw, 400px"
