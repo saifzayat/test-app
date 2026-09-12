@@ -74,6 +74,7 @@ export default function About() {
   });
   const [cvUrl, setCvUrl] = useState("");
   const [loading, setLoading] = useState(true);
+  const [photoLoaded, setPhotoLoaded] = useState(false);
 
   useEffect(() => {
     fetch("/api/portfolio")
@@ -150,14 +151,23 @@ export default function About() {
                 <div className="absolute -bottom-1.5 -left-1.5 w-4 h-4 border-b-2 border-l-2 border-[#f6c14c] pointer-events-none" />
                 <div className="absolute -bottom-1.5 -right-1.5 w-4 h-4 border-b-2 border-r-2 border-[#f6c14c] pointer-events-none" />
                 {/* Photo */}
-                <div className="relative rounded-lg overflow-hidden aspect-[4/5] bg-[#141414]">
-                  <Image
+                 <div className="relative rounded-lg overflow-hidden aspect-[4/5] bg-[#141414]">
+                  {/* Shimmer skeleton shown while image loads */}
+                  {!photoLoaded && (
+                    <div className="absolute inset-0 z-10 animate-pulse">
+                      <div className="w-full h-full bg-gradient-to-r from-[#1a1a1a] via-[#2a2a2a] to-[#1a1a1a] bg-[length:200%_100%] animate-[shimmer_1.5s_infinite]" />
+                    </div>
+                  )}
+                   <Image
                     src={about.photoUrl}
                     alt="Saif El-Zayat"
                     fill
                     sizes="(max-width: 768px) 100vw, 400px"
-                    className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    className={`object-cover object-top transition-all duration-700 group-hover:scale-105 ${
+                      photoLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
+                    }`}
                     priority
+                    onLoad={() => setPhotoLoaded(true)}
                   />
                   {/* Subtle vignette gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
