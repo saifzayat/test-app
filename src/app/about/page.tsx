@@ -149,7 +149,7 @@ export default function About() {
                 <div className="absolute -top-1.5 -right-1.5 w-4 h-4 border-t-2 border-r-2 border-[#f6c14c] pointer-events-none" />
                 <div className="absolute -bottom-1.5 -left-1.5 w-4 h-4 border-b-2 border-l-2 border-[#f6c14c] pointer-events-none" />
                 <div className="absolute -bottom-1.5 -right-1.5 w-4 h-4 border-b-2 border-r-2 border-[#f6c14c] pointer-events-none" />
-                Photo
+                {/* Photo */}
                 <div className="relative rounded-lg overflow-hidden aspect-[4/5] bg-[#141414]">
                   <Image
                     src={about.photoUrl}
