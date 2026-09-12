@@ -27,7 +27,8 @@ export default {
       },
       animation: {
         "spin-reverse": "spin-reverse 1s linear infinite",
-        menuOpen: "menuOpen 0.3s ease-out forwards", // ✅ هنا بنضيف الأنيميشن
+        menuOpen: "menuOpen 0.3s ease-out forwards",
+        shimmer: "shimmer 1.5s infinite",
       },
       keyframes: {
         "spin-reverse": {
@@ -44,6 +45,10 @@ export default {
             opacity: "1",
             transform: "scaleY(1)",
           },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "200% 0" },
+          "100%": { backgroundPosition: "-200% 0" },
         },
       },
       colors: {
